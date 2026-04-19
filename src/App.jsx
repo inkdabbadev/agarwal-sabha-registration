@@ -6,7 +6,7 @@ import platinumJubileeLogo from "./assets/platinum-jubilee-logo.png";
 import sabhaTitle from "./assets/sabha-title.png";
 import serviceSince from "./assets/service-since.png";
 import topOrnament from "./assets/top-ornament.png";
-import { supabase } from "./lib/supabaseClient";
+import { getSupabaseClient, supabaseConfigured } from "./lib/supabaseClient";
 
 const HOME_PATH = "/";
 const REGISTER_PATH = "/register";
@@ -213,6 +213,8 @@ function Header() {
           className="poster__ornament-image"
           src={topOrnament}
           alt="Agarwal Sabha decorative logo banner"
+          width="1400"
+          height="276"
           decoding="async"
           fetchPriority="high"
         />
@@ -222,6 +224,8 @@ function Header() {
             className="poster__title"
             src={sabhaTitle}
             alt="Shree Agarwal Sabha"
+            width="1239"
+            height="125"
             decoding="async"
             fetchPriority="high"
           />
@@ -230,6 +234,8 @@ function Header() {
               className="poster__service"
               src={serviceSince}
               alt="In service since 1952"
+              width="633"
+              height="75"
               decoding="async"
             />
           </div>
@@ -267,6 +273,8 @@ function LandingPage() {
           className="poster__logo"
           src={platinumJubileeLogo}
           alt="75th Year Platinum Jubilee celebrations"
+          width="783"
+          height="796"
           decoding="async"
           fetchPriority="high"
         />
@@ -276,6 +284,8 @@ function LandingPage() {
             className="poster__ceremony"
             src={inauguralCeremony}
             alt="Inaugural Ceremony"
+            width="533"
+            height="218"
             decoding="async"
           />
 
@@ -285,6 +295,8 @@ function LandingPage() {
               className="poster__date"
               src={eventDate}
               alt="Sunday, 26th April, 2026"
+              width="906"
+              height="112"
               decoding="async"
             />
             <span className="poster__date-line" />
@@ -309,7 +321,13 @@ function RegistrationPage() {
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
 
-  const isConfigured = useMemo(() => Boolean(supabase), []);
+  const isConfigured = useMemo(() => supabaseConfigured, []);
+
+  useEffect(() => {
+    if (isConfigured) {
+      void getSupabaseClient();
+    }
+  }, [isConfigured]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -354,6 +372,13 @@ function RegistrationPage() {
       email: form.email.trim().toLowerCase() || null,
     };
 
+    const supabase = await getSupabaseClient();
+    if (!supabase) {
+      setStatus("error");
+      setMessage("Supabase is not configured yet. Add your project URL and anon key first.");
+      return;
+    }
+
     const { error } = await supabase.from("ag_registrations").insert(payload);
 
     if (error) {
@@ -386,6 +411,8 @@ function RegistrationPage() {
                 className="registration__hero-logo"
                 src={platinumJubileeLogo}
                 alt="75th Year Platinum Jubilee celebrations"
+                width="783"
+                height="796"
                 decoding="async"
                 fetchPriority="high"
               />
@@ -393,6 +420,8 @@ function RegistrationPage() {
                 className="registration__hero-date"
                 src={eventDate}
                 alt="Sunday, 26th April, 2026"
+                width="906"
+                height="112"
                 decoding="async"
               />
             </div>
@@ -405,6 +434,8 @@ function RegistrationPage() {
                   className="registration__heading-art"
                   src={inauguralCeremony}
                   alt="Inaugural Ceremony"
+                  width="533"
+                  height="218"
                   decoding="async"
                 />
                 <h1 className="registration__title">Reserve your seat</h1>

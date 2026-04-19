@@ -99,11 +99,13 @@ input:-webkit-autofill:focus {
 .poster__ornament {
   position: relative;
   width: min(100%, 1320px);
+  aspect-ratio: 1400 / 276;
   margin: 0 auto;
 }
 
 .poster__ornament-image {
   width: 100%;
+  height: auto;
   filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.18));
 }
 
@@ -119,11 +121,13 @@ input:-webkit-autofill:focus {
 
 .poster__title {
   width: min(100%, 830px);
+  height: auto;
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.34));
 }
 
 .poster__service {
   width: min(100%, 390px);
+  height: auto;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.22));
 }
 
@@ -156,6 +160,7 @@ input:-webkit-autofill:focus {
 .poster__logo {
   width: min(29vw, 430px);
   min-width: 230px;
+  height: auto;
   filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.28));
 }
 
@@ -170,6 +175,7 @@ input:-webkit-autofill:focus {
 .poster__ceremony {
   width: min(22vw, 280px);
   min-width: 180px;
+  height: auto;
   margin-top: 0.15rem;
   filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.2));
 }
@@ -195,6 +201,7 @@ input:-webkit-autofill:focus {
 .poster__date {
   width: min(34vw, 480px);
   min-width: 260px;
+  height: auto;
   filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.2));
 }
 
@@ -291,10 +298,12 @@ input:-webkit-autofill:focus {
 
 .registration__hero-logo {
   width: min(100%, 170px);
+  height: auto;
 }
 
 .registration__hero-date {
   width: min(100%, 360px);
+  height: auto;
 }
 
 .registration__card {
@@ -358,6 +367,7 @@ input:-webkit-autofill:focus {
 
 .registration__heading-art {
   width: min(100%, 250px);
+  height: auto;
 }
 
 .registration__title {
