@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script>
+      const nextPath = encodeURIComponent(`${window.location.pathname}${window.location.search}`);
+      const redirect = `${window.location.origin}/?redirect=${nextPath}`;
+      window.location.replace(redirect);
+    </script>
+  </head>
+  <body></body>
+</html>

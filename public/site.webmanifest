@@ -1,0 +1,16 @@
+{
+  "name": "Shree Agarwal Sabha Platinum Jubilee",
+  "short_name": "Agarwal Sabha",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f3144",
+  "theme_color": "#0f3144",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
