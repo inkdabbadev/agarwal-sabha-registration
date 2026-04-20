@@ -19,7 +19,6 @@ const SITE_URL =
 const initialForm = {
   full_name: "",
   mobile_number: "",
-  email: "",
   website: "",
 };
 
@@ -27,16 +26,10 @@ function normalizeMobile(value) {
   return value.replace(/\D/g, "").slice(0, 10);
 }
 
-function validateEmail(value) {
-  if (!value) return true;
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
 function validateForm(form) {
   const nextErrors = {};
   const cleanName = form.full_name.trim();
   const cleanMobile = normalizeMobile(form.mobile_number);
-  const cleanEmail = form.email.trim();
 
   if (cleanName.length < 3) {
     nextErrors.full_name = "Please enter a valid full name.";
@@ -44,10 +37,6 @@ function validateForm(form) {
 
   if (cleanMobile.length !== 10) {
     nextErrors.mobile_number = "Please enter a valid 10-digit mobile number.";
-  }
-
-  if (!validateEmail(cleanEmail)) {
-    nextErrors.email = "Please enter a valid email address.";
   }
 
   return nextErrors;
@@ -369,7 +358,6 @@ function RegistrationPage() {
     const payload = {
       full_name: form.full_name.trim(),
       mobile_number: normalizeMobile(form.mobile_number),
-      email: form.email.trim().toLowerCase() || null,
     };
 
     const supabase = await getSupabaseClient();
@@ -385,7 +373,7 @@ function RegistrationPage() {
       setStatus("error");
 
       if (error.code === "23505") {
-        setMessage("This mobile number or email is already registered.");
+        setMessage("This mobile number is already registered.");
         return;
       }
 
@@ -495,22 +483,6 @@ function RegistrationPage() {
                   {errors.mobile_number ? (
                     <small className="field__error">{errors.mobile_number}</small>
                   ) : null}
-                </label>
-
-                <label className="field">
-                  <span>Email Address</span>
-                  <input
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    placeholder="Optional"
-                    autoComplete="email"
-                    maxLength="160"
-                    inputMode="email"
-                    aria-invalid={Boolean(errors.email)}
-                  />
-                  {errors.email ? <small className="field__error">{errors.email}</small> : null}
                 </label>
 
                 <div className="registration__actions">

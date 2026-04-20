@@ -15,6 +15,5 @@ Current table name:
 Current fields:
 - `full_name`
 - `mobile_number`
-- `email`
 
 If you want a different table name like `AG_User`, the SQL and frontend can be renamed easily.

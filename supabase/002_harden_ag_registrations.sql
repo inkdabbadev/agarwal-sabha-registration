@@ -60,14 +60,41 @@ $$;
 
 do $$
 begin
-  if not exists (
+  if exists (
     select 1
     from pg_constraint
     where conname = 'ag_registrations_email_format_check'
   ) then
     alter table public.ag_registrations
-      add constraint ag_registrations_email_format_check
-      check (email is null or email ~* '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$');
+      drop constraint ag_registrations_email_format_check;
+  end if;
+end
+$$;
+
+do $$
+begin
+  if exists (
+    select 1
+    from pg_indexes
+    where schemaname = 'public'
+      and indexname = 'ag_registrations_email_unique_idx'
+  ) then
+    drop index public.ag_registrations_email_unique_idx;
+  end if;
+end
+$$;
+
+do $$
+begin
+  if exists (
+    select 1
+    from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'ag_registrations'
+      and column_name = 'email'
+  ) then
+    alter table public.ag_registrations
+      drop column email;
   end if;
 end
 $$;
